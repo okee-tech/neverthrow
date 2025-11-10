@@ -2,10 +2,17 @@ import {
   Err as GenericErr,
   Ok as GenericOk,
   ResultAsync as GenericResultAsync,
-  err,
-  Result as GeneticResult,
+  err as errOriginal,
+  Result as GenericResult,
 } from "neverthrow";
 
+export {
+  errOriginal,
+  GenericErr,
+  GenericOk,
+  GenericResultAsync,
+  GenericResult,
+};
 export * from "neverthrow";
 
 export class Ok<T> extends GenericOk<T, Error> {}
@@ -13,9 +20,9 @@ export class Err<T> extends GenericErr<T, Error> {}
 export class ResultAsync<T> extends GenericResultAsync<T, Error> {}
 export type Result<T> = Ok<T> | Err<T>;
 export namespace Result {
-  export const fromThrowable = GeneticResult.fromThrowable;
-  export const fromAsyncThrowable = GeneticResult.combine;
-  export const combineWithAllErrors = GeneticResult.combineWithAllErrors;
+  export const fromThrowable = GenericResult.fromThrowable;
+  export const fromAsyncThrowable = GenericResult.combine;
+  export const combineWithAllErrors = GenericResult.combineWithAllErrors;
 }
 
 // Utility types
@@ -27,7 +34,7 @@ type FormattedError = {
 };
 
 // Utility functions
-function createError<T>(error: ErrorInput, cause?: unknown): Err<T> {
+function err<T>(error: ErrorInput, cause?: unknown): Err<T> {
   let baseError: Error;
 
   if (error instanceof Error) {
@@ -39,7 +46,7 @@ function createError<T>(error: ErrorInput, cause?: unknown): Err<T> {
   }
 
   if (!(error instanceof Error)) {
-    Error.captureStackTrace(baseError, createError);
+    Error.captureStackTrace(baseError, err);
   }
 
   let formattedCause: Error | undefined;
@@ -53,7 +60,7 @@ function createError<T>(error: ErrorInput, cause?: unknown): Err<T> {
     }
 
     if (!(cause instanceof Error)) {
-      Error.captureStackTrace(formattedCause, createError);
+      Error.captureStackTrace(formattedCause, err);
     }
   }
 
@@ -80,5 +87,5 @@ function logFormat(error: Error | Err<unknown>): FormattedError {
   return formattedError;
 }
 
-export { createError, logFormat };
+export { err, logFormat };
 export type { ErrorInput, FormattedError };
