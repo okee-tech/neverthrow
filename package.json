@@ -1,7 +1,8 @@
 {
   "name": "@okee-tech/neverthrow",
   "version": "1.0.0",
-  "description": "",
+  "description": "Opinionated wrapper around neverthrow with standardized Error handling",
+  "private": false,
   "type": "module",
   "main": "./.output/index.js",
   "types": "./.output/index.d.ts",
