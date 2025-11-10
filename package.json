@@ -2,13 +2,30 @@
   "name": "@okee-tech/neverthrow",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "type": "module",
+  "main": "./.output/index.js",
+  "types": "./.output/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./.output/index.d.ts",
+      "import": "./.output/index.js"
+    }
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "files": [
+    ".output"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "pnpm build"
+  },
+  "keywords": [
+    "neverthrow",
+    "result",
+    "error-handling",
+    "functional"
+  ],
+  "author": "Okee Tech",
+  "license": "MIT",
   "packageManager": "pnpm@10.20.0",
   "devDependencies": {
     "@eslint/js": "^9.39.1",
