@@ -1,6 +1,6 @@
 {
   "name": "@okee-tech/neverthrow",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Opinionated wrapper around neverthrow with standardized Error handling",
   "private": false,
   "publishConfig": {
